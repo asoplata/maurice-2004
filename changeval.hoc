@@ -1,0 +1,41 @@
+// Panel for manipulating one variable (parameter)
+
+
+strdef variablename, cmd
+objref PanBox
+varval1 = 0.0002
+// AES
+// varval2 = 0.009
+varval2 = 0.0002
+variablename = "aS2_na_ch"
+
+PanBox = new HBox()
+PanBox.intercept(1)
+
+xpanel("")
+	xvarlabel(variablename)
+xpanel()
+
+xpanel("")
+	xvalue("Value 1", "varval1")
+	xvalue("Value 2", "varval2")
+xpanel()
+
+xpanel("")
+	xbutton("Set Value 1", "changeval1()")
+	xbutton("Set Value 2", "changeval2()")
+xpanel()
+
+PanBox.intercept(0)
+PanBox.map("Change Variable Value", 600, 300, 350, 60)
+
+
+proc changeval1() {
+	sprint(cmd, "%s = %g", variablename, varval1)
+	execute(cmd)
+}
+
+proc changeval2() {
+	sprint(cmd, "%s = %g", variablename, varval2)
+	execute(cmd)
+}

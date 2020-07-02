@@ -1,0 +1,143 @@
+// Cholinergic Interneuron
+//
+// Josh Held, 7/2004
+
+load_file("nrngui.hoc")
+
+create soma, dend[2]
+
+connect dend[0](0), soma(0)
+connect dend[1](0), soma(1)
+
+access soma
+
+celsius = 22
+forall Ra = 70
+v_init = -55
+
+soma {
+	L = 20
+	diam = 20
+
+	insert pas
+		g_pas = .001
+		e_pas = -55
+	insert na_ch
+		gbar_na_ch = 0.4
+	insert na2_ch
+		gbar_na2_ch = 1
+	insert kv2_ch
+		gbar_kv2_ch = .1
+	insert kv4_ch
+		gbar_kv4_ch = .4
+	insert kcnq_ch
+		gbar_kcnq_ch = .002
+	insert kir2_ch
+		gbar_kir2_ch = 0
+	insert bk_ch
+		gbar_bk_ch = 1
+	insert sk_ch
+		gbar_sk_ch = .003
+	insert hcn12_ch
+		gbar_hcn12_ch = 0
+	insert hcn2_ch
+		gbar_hcn2_ch = 0
+	insert cal_ch
+		gbar_cal_ch = .003
+	insert cap_ch
+		gbar_cap_ch = 5e-05
+	insert ca_ch	// calcium handling
+}
+
+// // This gives you a flat input stimulus
+// objref stim
+// soma stim = new IClamp(0.5) // put it in middle of soma
+// stim.del = 1 // [ms] delay
+// stim.dur = 2000 // [ms] duration
+// stim.amp = 60 // [nA] amplitude
+
+// // This gives you an oscillation stim
+// objref oscstim
+// soma oscstim = new Icos(0.5)
+// oscstim.del = 10 // [ms] delay
+// oscstim.f =  130 // [Hz] frequency of stim
+// oscstim.amp =  1 // [nA] amplitude
+// // This is what to use to determine the length of time for the stimulus to run:
+// oscstim.n =  200 // [cycles] number of cycles to run
+// // 200 cycles * 130 Hz = about 1.5 seconds of stimulus time
+
+for i=0,1 {
+	dend[i] {
+		L  = 200
+		diam = 2
+
+		insert pas
+			g_pas = .001
+			e_pas = -55
+		insert na_ch
+			gbar_na_ch = 0.1
+		insert na2_ch
+			gbar_na2_ch = 0.25
+		insert kv2_ch
+			gbar_kv2_ch = .1
+		insert kv4_ch
+			gbar_kv4_ch = .4
+		insert kcnq_ch
+			gbar_kcnq_ch = .0003
+		insert kir2_ch
+			gbar_kir2_ch = 0
+		insert bk_ch
+			gbar_bk_ch = 1
+		insert sk_ch
+			gbar_sk_ch = .003
+		insert hcn12_ch
+			gbar_hcn12_ch = .01
+		insert hcn2_ch
+			gbar_hcn2_ch = .03
+		insert cal_ch
+			gbar_cal_ch = .003
+		insert cap_ch
+			gbar_cap_ch = 0
+		insert ca_ch	// calcium handling
+	}
+}
+
+objref oscstim
+dend[0] oscstim = new Icos(0.5)
+oscstim.delay = 10 // [ms] delay
+oscstim.f =  130 // [Hz] frequency of stim
+oscstim.amp = 0 // [nA] amplitude
+// This is what to use to determine the length of time for the stimulus to run:
+oscstim.n =  200 // [cycles] number of cycles to run
+// 200 cycles * 130 Hz = about 1.5 seconds of stimulus time
+
+
+load_file("graph.hoc")
+load_file("changeval.hoc")
+
+// A RunControl panel
+xpanel("RunControl", 0)
+	v_init = -55
+	xvalue("Init","v_init", 1,"stdinit()", 1, 1 )
+	xbutton("Init & Run","run()")
+	xbutton("Stop","stoprun=1")
+	runStopAt = 5
+	// runStopAt = 15
+	xvalue("Continue til","runStopAt", 1,"{continuerun(runStopAt) stoprun=1}", 1, 1 )
+	runStopIn = 1
+	xvalue("Continue for","runStopIn", 1,"{continuerun(t + runStopIn) stoprun=1}", 1, 1 )
+	xbutton("Single Step","steprun()")
+	t = 0
+	xvalue("t","t", 2 )
+	tstop = 5000
+	// tstop = 15000
+	xvalue("Tstop","tstop", 1,"tstop_changed()", 0, 1 )
+	dt = 0.25
+	xvalue("dt","dt", 1,"setdt()", 0, 1 )
+	steps_per_ms = 4
+	xvalue("Points plotted/ms","steps_per_ms", 1,"setdt()", 0, 1 )
+	xcheckbox("Quiet",&stdrun_quiet,"")
+	realtime = 0
+	xvalue("Real Time","realtime", 0,"", 0, 1 )
+	xvalue("oscstim.amp","oscstim.amp", 0 )
+xpanel(0,400)
