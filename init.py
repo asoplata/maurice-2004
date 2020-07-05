@@ -7,11 +7,15 @@ import matplotlib.pyplot as plt
 from neuron import h
 from neuron.units import ms, mV
 
+import numpy as np
+
 # Define the soma
 soma = h.Section(name='soma')
 soma.L = 20
 soma.diam = 20
 soma.Ra = 70
+
+
 
 soma.insert('pas')
 soma.insert('na_ch')
