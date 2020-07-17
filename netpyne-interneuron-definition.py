@@ -23,17 +23,87 @@ class InterneuronMaurice2004:
     def _create_sections(self):
         """Create the sections of the cell."""
         self.soma = h.Section(name='soma', cell=self)
-        self.dend = [h.Section(name='dend[%d]' % i) for i in range(2)]
-        pass
+        self.number_dendrites = 2
+        self.dend = [h.Section(name='dend[%d]' % ii) for ii in range(self.number_dendrites)]
 
     def _connect_topology(self):
-        pass
+        self.dend[0].connect(self.soma(0), 0)
+        self.dend[1].connect(self.soma(1), 0)
 
     def _define_geometry(self):
-        pass
+        """Set the 3D geometry of the cell."""
+        self.soma.L = 20  # length of section, units: um
+        self.soma.diam = 20  # diameter of section, units: um
+        self.soma.Ra = 70  # axial resistivity, units: ohm * cm
+        for ii in range(self.number_dendrites):
+            self.dend[ii].L = 200  # length of section, units: um
+            self.dend[ii].diam = 2  # diameter of section, units: um
+            self.dend[ii].Ra = 70  # axial resistivity, units: ohm * cm
 
     def _define_biophysics(self):
-        pass
+        """Set the mechanisms and parameters of them in the cell."""
+        self.soma.insert('pas')
+        self.soma.insert('na_ch')
+        self.soma.insert('na2_ch')
+        self.soma.insert('kv2_ch')
+        self.soma.insert('kv4_ch')
+        self.soma.insert('kcnq_ch')
+        self.soma.insert('kir2_ch')
+        self.soma.insert('bk_ch')
+        self.soma.insert('sk_ch')
+        self.soma.insert('hcn12_ch')
+        self.soma.insert('hcn2_ch')
+        self.soma.insert('cal_ch')
+        self.soma.insert('cap_ch')
+        self.soma.insert('ca_ch')
+
+        for seg in self.soma:
+            seg.pas.g = 0.001
+            seg.pas.e = -55
+            seg.na_ch.gbar = 0.4
+            seg.na2_ch.gbar = 1
+            seg.kv2_ch.gbar = 0.1
+            seg.kv4_ch.gbar = 0.4
+            seg.kcnq_ch.gbar = 0.002
+            seg.kir2_ch.gbar = 0
+            seg.bk_ch.gbar = 1
+            seg.sk_ch.gbar = 0.003
+            seg.hcn12_ch.gbar = 0
+            seg.hcn2_ch.gbar = 0
+            seg.cal_ch.gbar = 0.003
+            seg.cap_ch.gbar = 5e-5
+
+        for ii in range(self.number_dendrites):
+            self.dend[ii].insert('pas')
+            self.dend[ii].insert('na_ch')
+            self.dend[ii].insert('na2_ch')
+            self.dend[ii].insert('kv2_ch')
+            self.dend[ii].insert('kv4_ch')
+            self.dend[ii].insert('kcnq_ch')
+            self.dend[ii].insert('kir2_ch')
+            self.dend[ii].insert('bk_ch')
+            self.dend[ii].insert('sk_ch')
+            self.dend[ii].insert('hcn12_ch')
+            self.dend[ii].insert('hcn2_ch')
+            self.dend[ii].insert('cal_ch')
+            self.dend[ii].insert('cap_ch')
+            self.dend[ii].insert('ca_ch')
+
+            for seg in self.dend[ii]:
+                seg.pas.g = 0.001
+                seg.pas.e = -55
+                seg.na_ch.gbar = 0.1
+                seg.na2_ch.gbar = 0.25
+                seg.kv2_ch.gbar = 0.1
+                seg.kv4_ch.gbar = 0.4
+                seg.kcnq_ch.gbar = 0.0003
+                seg.kir2_ch.gbar = 0
+                seg.bk_ch.gbar = 1
+                seg.sk_ch.gbar = 0.003
+                seg.hcn12_ch.gbar = 0.01
+                seg.hcn2_ch.gbar = 0.03
+                seg.cal_ch.gbar = 0.003
+                seg.cap_ch.gbar = 0
 
     def _create_synapses(self):
         pass
@@ -54,121 +124,3 @@ class InterneuronMaurice2004:
     #     nc = h.NetCon(self.soma(0.5)._ref_v, None, sec=self.soma)
     #     nc.threshold = thresh
     #     return nc
-
-
-soma = h.Section(name='soma')
-soma.L = 20
-soma.diam = 20
-soma.Ra = 70
-
-soma.insert('pas')
-soma.insert('na_ch')
-soma.insert('na2_ch')
-soma.insert('kv2_ch')
-soma.insert('kv4_ch')
-soma.insert('kcnq_ch')
-soma.insert('kir2_ch')
-soma.insert('bk_ch')
-soma.insert('sk_ch')
-soma.insert('hcn12_ch')
-soma.insert('hcn2_ch')
-soma.insert('cal_ch')
-soma.insert('cap_ch')
-soma.insert('ca_ch')
-
-for seg in soma:
-    seg.pas.g = 0.001
-    seg.pas.e = -55
-    seg.na_ch.gbar = 0.4
-    seg.na2_ch.gbar = 1
-    seg.kv2_ch.gbar = 0.1
-    seg.kv4_ch.gbar = 0.4
-    seg.kcnq_ch.gbar = 0.002
-    seg.kir2_ch.gbar = 0
-    seg.bk_ch.gbar = 1
-    seg.sk_ch.gbar = 0.003
-    seg.hcn12_ch.gbar = 0
-    seg.hcn2_ch.gbar = 0
-    seg.cal_ch.gbar = 0.003
-    seg.cap_ch.gbar = 5e-5
-
-# Define the dendrites
-dend = [h.Section(name='dend[%d]' % i) for i in range(2)]
-dend[0].connect(soma(0), 0)
-dend[1].connect(soma(1), 0)
-
-for ii in 0, 1:
-    dend[ii].L = 200
-    dend[ii].diam = 2
-    dend[ii].Ra = 70
-    dend[ii].insert('pas')
-    dend[ii].insert('na_ch')
-    dend[ii].insert('na2_ch')
-    dend[ii].insert('kv2_ch')
-    dend[ii].insert('kv4_ch')
-    dend[ii].insert('kcnq_ch')
-    dend[ii].insert('kir2_ch')
-    dend[ii].insert('bk_ch')
-    dend[ii].insert('sk_ch')
-    dend[ii].insert('hcn12_ch')
-    dend[ii].insert('hcn2_ch')
-    dend[ii].insert('cal_ch')
-    dend[ii].insert('cap_ch')
-    dend[ii].insert('ca_ch')
-
-    for seg in dend[ii]:
-        seg.pas.g = 0.001
-        seg.pas.e = -55
-        seg.na_ch.gbar = 0.1
-        seg.na2_ch.gbar = 0.25
-        seg.kv2_ch.gbar = 0.1
-        seg.kv4_ch.gbar = 0.4
-        seg.kcnq_ch.gbar = 0.0003
-        seg.kir2_ch.gbar = 0
-        seg.bk_ch.gbar = 1
-        seg.sk_ch.gbar = 0.003
-        seg.hcn12_ch.gbar = 0.01
-        seg.hcn2_ch.gbar = 0.03
-        seg.cal_ch.gbar = 0.003
-        seg.cap_ch.gbar = 0
-
-# Visualize the connectivity
-h.topology()
-
-# Define the stimulus
-iosc = h.Icos(dend[0](0.5))
-iosc.delay = 10  # [ms] delay until start of stim
-iosc.f = 130  # [Hz] frequency of stim
-iosc.amp = -0.05  # [nA] amplitude
-# 200 cycles * 130 Hz = about 1.5 seconds of stim time
-iosc.n = 200  # [cycles] number of cycles to run
-#
-# # What data to save
-# v = h.Vector().record(soma(0.5)._ref_v)  # Membrane potential vector
-# t = h.Vector().record(h._ref_t)
-# stim = h.Vector().record(iosc._ref_i)
-#
-# # Setup and actually run the simulation
-# h.finitialize(-55 * mV)
-# h.celsius = 22
-# h.load_file('stdrun.hoc')
-# h.continuerun(5000 * ms)
-# h.dt = 25 * ms
-# h.steps_per_ms = 4
-#
-# # Plotting
-# plt.figure()
-# plt.plot(t, v)
-# plt.xlabel('t (ms)')
-# plt.ylabel('v (mV)')
-# plt.show()
-#
-# plt.figure()
-# plt.plot(t, stim)
-# plt.xlabel('t (ms)')
-# plt.ylabel('stim (nA)')
-# plt.show()
-#
-# # Saving data
-# with open('data.csv', 'w') as f:
-#     csv.writer(f).writerows(zip(t, v))
