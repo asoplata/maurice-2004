@@ -19,8 +19,19 @@ netParams = specs.NetParams()  # object of class NetParams to store the network 
 # and docs don't say much about this use of the word "rule"
 # netParams.importCellParams(label='PYR_Mainen_rule', conds={'cellType': 'PYR', 'cellModel': 'Mainen'},
 #         fileName='netpyne-interneuron-definition.py.py', cellName='InterneuronMaurice2004')
-netParams.importCellParams(label='PYR_Mainen_rule',conds={},
-        fileName='netpyne-interneuron-definition.py', cellName='InterneuronMaurice2004')
+# For the label, use the celltype, but it doesn't actually matter
+cellRule = netParams.importCellParams(label='IN_Maurice_rule',
+                                      conds={'cellType': 'IN', 'cellModel': 'Maurice'},
+                                      fileName='netpyne-interneuron-definition.py',
+                                      cellName='InterneuronMaurice2004')
+
+# See Tutorial 2 net
+# For the cellType, use any label, it doesn't actually matter
+netParams.popParams['Maurice_pop'] = {'cellType': 'IN', 'numCells': 1, 'cellModel': 'Maurice'}
+
+# # Stimulation parameters
+# netParams.stimSourceParams['bkg'] = {'type': 'NetStim', 'rate': 10, 'noise': 0.5}
+# netParams.stimTargetParams['bkg->PYR'] = {'source': 'bkg', 'conds': {'cellType': 'PYR'}, 'weight': 0.01, 'delay': 5, 'synMech': 'exc'}
 
 ###############################################################################
 # SIMULATION PARAMETERS
@@ -28,30 +39,30 @@ netParams.importCellParams(label='PYR_Mainen_rule',conds={},
 simConfig = specs.SimConfig()
 
 # Simulation parameters
-simConfig.duration = 1*1e3 # Duration of the simulation, in ms
-simConfig.dt = 0.025 # Internal integration timestep to use
+simConfig.duration = 1*1e3  # Duration of the simulation, in ms
+simConfig.dt = 0.025  # Internal integration timestep to use
 # simConfig.seeds = {'conn': 1, 'stim': 1, 'loc': 1} # Seeds for randomizers (connectivity, input stimulation and cell locations)
 simConfig.verbose = False  # show detailed messages
 # simConfig.hParams = {'v_init': -75}
 
 # Recording
-simConfig.recordCells = []  # which cells to record from
-simConfig.recordTraces = {'Vsoma':{'sec':'soma','loc':0.5,'var':'v'}}
+simConfig.recordCells = ['all']  # which cells to record from
+simConfig.recordTraces = {'Vsoma': {'sec': 'soma', 'loc': 0.5, 'var': 'v'}}
 simConfig.recordStim = True  # record spikes of cell stims
-simConfig.recordStep = 0.1 # Step size in ms to save data (eg. V traces, LFP, etc)
+simConfig.recordStep = 0.1  # Step size in ms to save data (eg. V traces, LFP, etc)
 
 # Saving
 simConfig.filename = 'netpyne-test-output'  # Set file output name
-simConfig.saveFileStep = 1000 # step size in ms to save data to disk
-simConfig.savePickle = False # Whether or not to write spikes etc. to a .mat file
+simConfig.saveFileStep = 1000  # step size in ms to save data to disk
+simConfig.savePickle = False  # Whether or not to write spikes etc. to a .mat file
 
 # Analysis and plotting
-simConfig.analysis['plotRaster'] = {'saveData':'temp.json'}# True  # Plot raster
-simConfig.analysis['plotTraces'] = {'include': [2]}  # Plot raster
+simConfig.analysis['plotRaster'] = {'saveData': 'temp.json'}  # True  # Plot raster
+simConfig.analysis['plotTraces'] = {'include': [0]}  # Plot raster
 simConfig.analysis['plot2Dnet'] = True  # Plot 2D net cells and connections
 
 sim.createSimulateAnalyze(netParams, simConfig)
-
+# sim.checkOutput('netpyne-init')
 
 
 #
