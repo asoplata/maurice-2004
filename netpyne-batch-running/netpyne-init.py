@@ -1,10 +1,11 @@
 
-# Some, but not all, of this is from https://neuron.yale.edu/neuron/docs/scripting-neuron-basics
+# Much of this is from http://netpyne.org/tutorial.html
 
 import csv
 import matplotlib.pyplot as plt
 
 # from neuron import h
+
 # from neuron.units import ms, mV
 
 # import numpy as np
@@ -15,23 +16,31 @@ from netpyne import specs, sim
 # Network parameters
 netParams = specs.NetParams()  # object of class NetParams to store the network parameters
 
-# need a label of the "rule" for the cell that is to be imported, but this is not the same as connectivity "rules"
-# and docs don't say much about this use of the word "rule"
-# netParams.importCellParams(label='PYR_Mainen_rule', conds={'cellType': 'PYR', 'cellModel': 'Mainen'},
-#         fileName='netpyne-interneuron-definition.py.py', cellName='InterneuronMaurice2004')
-# For the label, use the celltype, but it doesn't actually matter
+# The label possibly doesn't matter, but the "conds" dict is important, and where you set how to identify the model
+# for later use in "popParams"
 cellRule = netParams.importCellParams(label='IN_Maurice_rule',
                                       conds={'cellType': 'IN', 'cellModel': 'Maurice'},
                                       fileName='netpyne-interneuron-definition.py',
                                       cellName='InterneuronMaurice2004')
 
-# See Tutorial 2 net
-# For the cellType, use any label, it doesn't actually matter
 netParams.popParams['Maurice_pop'] = {'cellType': 'IN', 'numCells': 1, 'cellModel': 'Maurice'}
 
-# # Stimulation parameters
-# netParams.stimSourceParams['bkg'] = {'type': 'NetStim', 'rate': 10, 'noise': 0.5}
-# netParams.stimTargetParams['bkg->PYR'] = {'source': 'bkg', 'conds': {'cellType': 'PYR'}, 'weight': 0.01, 'delay': 5, 'synMech': 'exc'}
+# Stimulation parameters
+# First, define the syn mech
+# Simple GABA-A mechanism loosely adapted from Destexhe's via this thread
+# https://www.neuron.yale.edu/phpBB/viewtopic.php?t=2049
+netParams.synMechParams['inh'] = {'mod': 'Exp2Syn', 'tau1': 0.2, 'tau2': 5.0, 'e': -80}
+# Then setup the stim to use this syn mech
+# TODO check rate unit conversion!!! text claims a rate of "10" may be "100 Hz"!!
+netParams.stimSourceParams['bkg'] = {'type': 'NetStim',
+                                     'rate': 10,
+                                     'noise': 0.5}
+# TODO what are the units of the weight? absolute conductance?
+netParams.stimTargetParams['bkg->IN'] = {'source': 'bkg',
+                                         'conds': {'cellType': 'IN', 'cellModel': 'Maurice'},
+                                         'weight': 0.5,
+                                         'delay': 5,
+                                         'synMech': 'inh'}
 
 ###############################################################################
 # SIMULATION PARAMETERS
