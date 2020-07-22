@@ -42,6 +42,7 @@ class InterneuronMaurice2004:
 
     def _define_biophysics(self):
         """Set the mechanisms and parameters of them in the cell."""
+
         self.soma.insert('pas')
         self.soma.insert('na_ch')
         self.soma.insert('na2_ch')

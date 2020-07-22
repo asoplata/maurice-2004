@@ -23,11 +23,11 @@ netParams.popParams['Maurice_pop'] = {'cellType': 'IN', 'numCells': 1, 'cellMode
 # need a label of the "rule" for the cell that is to be imported, but this is not the same as connectivity "rules"
 # and docs don't say much about this use of the word "rule"
 # netParams.importCellParams(label='PYR_Mainen_rule', conds={'cellType': 'PYR', 'cellModel': 'Mainen'},
-#         fileName='netpyne-interneuron-definition.py.py', cellName='InterneuronMaurice2004')
+#         fileName='netpyne_interneuron_definition.py.py', cellName='InterneuronMaurice2004')
 # For the label, use the celltype, but it doesn't actually matter
 netParams.importCellParams(label='IN_Maurice_rule',
                            conds={'cellType': 'IN', 'cellModel': 'Maurice'},
-                           fileName='netpyne-interneuron-definition.py',
+                           fileName='netpyne_interneuron_definition.py',
                            cellName='InterneuronMaurice2004')
 
 # netParams.popParams['Mainen_pop'] = {'cellType': 'PYR', 'numCells': 5, 'cellModel': 'Mainen'}

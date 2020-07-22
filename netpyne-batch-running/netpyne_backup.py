@@ -20,10 +20,11 @@ netParams = specs.NetParams()  # object of class NetParams to store the network 
 # for later use in "popParams"
 cellRule = netParams.importCellParams(label='IN_Maurice_rule',
                                       conds={'cellType': 'IN', 'cellModel': 'Maurice'},
-                                      fileName='netpyne-interneuron-definition.py',
+                                      fileName='netpyne_interneuron_definition.py',
                                       cellName='InterneuronMaurice2004')
 
-netParams.popParams['Maurice_pop'] = {'cellType': 'IN', 'numCells': 1, 'cellModel': 'Maurice'}
+netParams.popParams['Maurice_pop'] = {'cellType': 'IN', 'numCells': 5, 'cellModel': 'Maurice'}
+netParams.defaultThreshold = -15  # [mV] spike detection threshold for rasters
 
 # Stimulation parameters
 # First, define the syn mech
@@ -48,7 +49,7 @@ netParams.stimTargetParams['bkg->IN'] = {'source': 'bkg',
 simConfig = specs.SimConfig()
 
 # Simulation parameters
-simConfig.duration = 1*1e3  # Duration of the simulation, in ms
+simConfig.duration = 1 * 1e3  # Duration of the simulation, in ms
 simConfig.dt = 0.025  # Internal integration timestep to use
 # simConfig.seeds = {'conn': 1, 'stim': 1, 'loc': 1} # Seeds for randomizers (connectivity, input stimulation and cell locations)
 simConfig.verbose = False  # show detailed messages
@@ -61,13 +62,13 @@ simConfig.recordStim = True  # record spikes of cell stims
 simConfig.recordStep = 0.1  # Step size in ms to save data (eg. V traces, LFP, etc)
 
 # Saving
-simConfig.filename = 'netpyne-test-output'  # Set file output name
+simConfig.filename = 'netpyne-backup-output'  # Set file output name
 simConfig.saveFileStep = 1000  # step size in ms to save data to disk
 simConfig.savePickle = False  # Whether or not to write spikes etc. to a .mat file
 
 # Analysis and plotting
-simConfig.analysis['plotRaster'] = {'saveData': 'temp.json'}  # True  # Plot raster
-simConfig.analysis['plotTraces'] = {'include': [0]}  # Plot raster
+simConfig.analysis['plotRaster'] = {'saveData': 'temp.json', 'saveFig': True}  # True  # Plot raster
+simConfig.analysis['plotTraces'] = {'include': [0], 'saveFig': True}  # Plot raster
 simConfig.analysis['plot2Dnet'] = True  # Plot 2D net cells and connections
 
 sim.createSimulateAnalyze(netParams, simConfig)
