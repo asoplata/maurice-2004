@@ -1,6 +1,9 @@
 from netpyne import specs, sim
 
-# from netpyne_cfg import cfg
+try:
+    from __main__ import cfg
+except:
+    from netpyne_cfg import cfg
 
 # Network parameters
 netParams = specs.NetParams()  # object of class NetParams to store the network parameters
@@ -31,6 +34,6 @@ netParams.stimSourceParams['bkg'] = {'type': 'NetStim',
 # TODO what are the units of the weight? absolute conductance?
 netParams.stimTargetParams['bkg->IN'] = {'source': 'bkg',
                                          'conds': {'cellType': 'IN', 'cellModel': 'Maurice'},
-                                         'weight': 0.5,
+                                         'weight': cfg.inhWeight,
                                          'delay': 5,
                                          'synMech': 'inh'}

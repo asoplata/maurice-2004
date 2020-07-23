@@ -10,7 +10,7 @@ cfg.recordTraces = {'V_soma':{'sec': 'soma', 'loc':0.5, 'var': 'v'}}  # Dict wit
 # cfg.recordStim = True  # record spikes of cell stims
 cfg.recordStep = 0.1 			# Step size in ms to save data (eg. V traces, LFP, etc)
 cfg.filename = 'netpyne_batch_output'  # Set file output name
-cfg.saveFileStep = 1000  # step size in ms to save data to disk
+# cfg.saveFileStep = 1000  # step size in ms to save data to disk
 cfg.saveJson = True
 cfg.printPopAvgRates = True
 cfg.analysis['plotRaster'] = {'saveFig': True} 			# Plot a raster
@@ -19,3 +19,4 @@ cfg.analysis['plotTraces'] = {'include': [0], 'saveFig': True} 			# Plot recorde
 # # Variable parameters (used in netParams)
 # cfg.synMechTau2 = 5
 # cfg.connWeight = 0.01
+cfg.inhWeight = 0.01
