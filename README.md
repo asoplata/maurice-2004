@@ -34,6 +34,7 @@ The easiest way to get started that works ANYWHERE is:
 `conda activate neuro`
 
 Do this now. Afterwards, you should now see something like `(neuro)` to the left of your command prompt every time it appears.
+
 5. If on Linux, install a necessary library by running `conda install gxx_linux-64`. If on Windows or Mac/OS X, try installing a similar library via `conda install clangxx`; I'm not sure whether or not the non-Linux solution will work.
 6. Now, install the Python package for NEURON using
 
