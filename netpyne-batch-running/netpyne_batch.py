@@ -1,5 +1,6 @@
 from netpyne import specs
 from netpyne.batch import Batch
+import os
 
 
 def batchInhWeight():
@@ -9,7 +10,7 @@ def batchInhWeight():
     # Parameters and values to explore (corresponds to variable in simConfig)
     # params['synMechTau2'] = [3.0, 5.0, 7.0]
     # params['connWeight'] = [0.005, 0.01, 0.15]
-    params['inhWeight'] = [0.01, 0.025, 0.05, 0.1]
+    params['inhWeight'] = [0.01, 0.1, 0.5, 1.0, 1.5, 5.0, 10.0]
 
     # create Batch object with paramaters to modify, and model files to use
     b = Batch(params=params,
@@ -21,14 +22,17 @@ def batchInhWeight():
     # Note: folder prefix must already exist
     save_folder_prefix = '/projectnb/crc-nak/asoplata/x7-scc-data/netpyne_batch_testing/'
     b.saveFolder = save_folder_prefix + 'netpyne_batch_output_data'
-    code_folder_prefix = '/usr3/graduate/asoplata/rep/maurice-2004/netpyne-batch-running/'
+    # b.saveFolder = 'netpyne_batch_output_data'
     b.method = 'grid'
     # b.runCfg = {'type': 'mpi_bulletin',
     #             'script': 'netpyne_init.py',
     #             'skip': True}
     b.runCfg = {'type': 'hpc_torque',
-                'script': code_folder_prefix + 'netpyne_init.py',
-                'skip': True}
+                'script': 'netpyne_init.py',
+                'skip': True,
+                'custom': 'export PBS_O_WORKDIR=$SGE_O_WORKDIR'
+                }
+
 
     # Run batch simulations
     b.run()

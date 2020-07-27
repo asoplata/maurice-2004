@@ -5,11 +5,11 @@ cfg = specs.SimConfig()		# object of class SimConfig to store simulation configu
 
 cfg.duration = 1 * 1e3 	    # Duration of the simulation, in ms
 cfg.dt = 0.025 				# Internal integration timestep to use
-cfg.verbose = False  			# Show detailed messages
+cfg.verbose = True  			# Show detailed messages
 cfg.recordTraces = {'V_soma':{'sec': 'soma', 'loc':0.5, 'var': 'v'}}  # Dict with traces to record
 # cfg.recordStim = True  # record spikes of cell stims
 cfg.recordStep = 0.1 			# Step size in ms to save data (eg. V traces, LFP, etc)
-cfg.filename = 'netpyne_batch_output'  # Set file output name
+cfg.filename = 'netpyne_batch_output'  # Set folder output name
 # cfg.saveFileStep = 1000  # step size in ms to save data to disk
 cfg.saveJson = True
 cfg.printPopAvgRates = True
