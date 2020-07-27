@@ -23,8 +23,8 @@ so let me know if there's a problem.
 
 The easiest way to get started that works ANYWHERE is:
 
-1. Install Anaconda from here: https://www.anaconda.com/products/individual and restart your computer afterwards
-2. Open up a Terminal/Command-line window
+1. Install Anaconda from here: https://www.anaconda.com/products/individual and restart your computer afterwards.
+2. Open up a Terminal/Command-line window.
 3. Create a compatible "conda" environment with Python 3.7 using a command similar to
 
 `conda create --name=neuro python=3.7`
@@ -57,7 +57,9 @@ module load openmpi/3.1.4
 export PATH=$PATH:/projectnb/<your_project_name>/<your_user_name>/conda_envs
 ```
 
-3. Now open up a NEW Terminal window
+3. Now open up a NEW Terminal window.
 4. Follow steps 3-5 from the previous section (including installing the Linux library).
 5. Instead of just installing NEURON with `pip install neuron`, instead run `pip install neuron netpyne` to also install NetPyNE.
-6. `cd` to to `netpyne-batch-running` subfolder of this code, and now you can run the batch job submission and simulation by running `python netpyne_batch.py`! After the jobs complete, you can run `python netpyne_analysis.py` to compare the different simulations!
+6. `cd` to to `netpyne-batch-running` subfolder of this code.
+7. Follow step 8 from the previous section.
+8. Now you can run the batch job submission and simulation by running `python netpyne_batch.py`! After the jobs complete, you can run `python netpyne_analysis.py` to compare the different simulations!
