@@ -30,7 +30,7 @@ netParams.synMechParams['inh'] = {'mod': 'Exp2Syn', 'tau1': 0.2, 'tau2': 5.0, 'e
 # Then setup the stim to use this syn mech
 # TODO check rate unit conversion!!! text claims a rate of "10" may be "100 Hz"!!
 netParams.stimSourceParams['bkg'] = {'type': 'NetStim',
-                                     'rate': 10,
+                                     'rate': cfg.inhRate,  # [ms] mean time between spikes
                                      'noise': 0.5}
 # TODO what are the units of the weight? absolute conductance?
 netParams.stimTargetParams['bkg->IN'] = {'source': 'bkg',

@@ -196,11 +196,12 @@ def plot2DRate(dataFolder, batchLabel, params, data, par1, par2, val, valLabel, 
 # Function to read batch data and plot figure
 #--------------------------------------------------------------------
 def readPlot():
-    dataFolder = 'tauWeight_data/'
-    batchLabel = 'tauWeight'
+    dataFolder = 'netpyne_batch_output_data/'
+    batchLabel = 'inh_stim_exploration'
     
     params, data = readBatchData(dataFolder, batchLabel, loadAll=0, saveAll=1, vars=None, maxCombs=None) 
-    plot2DRate(dataFolder, batchLabel, params, data, 'synMechTau2', 'connWeight', 'M', "'M' pop rate (Hz)")
+    plot2DRate(dataFolder, batchLabel, params, data, 'inhWeight', 'inhRate',
+            'Maurice_pop', "pop rate (Hz)")
 
 
 # Main code

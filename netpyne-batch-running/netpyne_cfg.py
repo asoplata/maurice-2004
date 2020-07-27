@@ -20,3 +20,4 @@ cfg.analysis['plotTraces'] = {'include': [0], 'saveFig': True} 			# Plot recorde
 # cfg.synMechTau2 = 5
 # cfg.connWeight = 0.01
 cfg.inhWeight = 0.01
+cfg.inhRate = 10
