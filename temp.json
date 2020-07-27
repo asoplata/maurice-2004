@@ -1,0 +1,41 @@
+{
+    "cellGids": [
+        0
+    ],
+    "include": [
+        "allCells"
+    ],
+    "maxSpikes": 100000000.0,
+    "numNetStims": 0,
+    "orderBy": "gid",
+    "orderInverse": false,
+    "sortedGids": [
+        0
+    ],
+    "spikeHist": null,
+    "spkColors": [
+        [
+            0.42,
+            0.67,
+            0.84
+        ],
+        [
+            0.42,
+            0.67,
+            0.84
+        ]
+    ],
+    "spkInds": [
+        0,
+        0
+    ],
+    "spkTimes": [
+        478.34999999980187,
+        555.1499999999282
+    ],
+    "syncLines": false,
+    "timeRange": [
+        0,
+        1000.0
+    ]
+}
