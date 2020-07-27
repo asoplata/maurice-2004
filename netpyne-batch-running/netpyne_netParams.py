@@ -11,12 +11,13 @@ netParams = specs.NetParams()  # object of class NetParams to store the network 
 # Population parameters
 netParams.popParams['Maurice_pop'] = {'cellType': 'IN', 'numCells': 1, 'cellModel': 'Maurice'}
 
+code_folder_prefix = '/usr3/graduate/asoplata/rep/maurice-2004/netpyne-batch-running/'
 # Cell property rules
 # The label possibly doesn't matter, but the "conds" dict is important, and where you set how to identify the model
 # for later use in "popParams"
 cellRule = netParams.importCellParams(label='IN_Maurice_rule',
                                       conds={'cellType': 'IN', 'cellModel': 'Maurice'},
-                                      fileName='netpyne_interneuron_definition.py',
+                                      fileName=code_folder_prefix + 'netpyne_interneuron_definition.py',
                                       cellName='InterneuronMaurice2004')
 
 netParams.defaultThreshold = -15  # [mV] spike detection threshold for rasters

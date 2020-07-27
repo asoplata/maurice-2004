@@ -21,12 +21,13 @@ def batchInhWeight():
     # Note: folder prefix must already exist
     save_folder_prefix = '/projectnb/crc-nak/asoplata/x7-scc-data/netpyne_batch_testing/'
     b.saveFolder = save_folder_prefix + 'netpyne_batch_output_data'
+    code_folder_prefix = '/usr3/graduate/asoplata/rep/maurice-2004/netpyne-batch-running/'
     b.method = 'grid'
     # b.runCfg = {'type': 'mpi_bulletin',
     #             'script': 'netpyne_init.py',
     #             'skip': True}
     b.runCfg = {'type': 'hpc_torque',
-                'script': 'netpyne_init.py',
+                'script': code_folder_prefix + 'netpyne_init.py',
                 'skip': True}
 
     # Run batch simulations
