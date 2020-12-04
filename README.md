@@ -42,7 +42,10 @@ Do this now. Afterwards, you should now see something like `(neuro)` to the left
 
 7. Use the command `cd` to Change Directory into where you've downloaded this model.
 8. Run the command `nrnivmodl`. It should spit out a bunch of text and create a bunch of compiled files in a folder called `x86_64`. This is it compiling the mechanisms, but not the sim code itself.
-9. If you want to run the original model code, run `nrngui mosinit.hoc`, or if you want to run the native Python implementation, run `nrniv init.py`.
+9. If you want to run the original NEURON/hoc model code, run `nrngui
+   mosinit.hoc`. If you want to run my native Python implementation, run `nrniv
+   init.py`. If you want to run my NetPyNE single-simulation implementation, run
+   `pip install netpyne` followed by `python netpyne_init.py`.
 
 ### SCC Cluster / NetPyNE
 
@@ -60,6 +63,6 @@ export PATH=$PATH:/projectnb/<your_project_name>/<your_user_name>/conda_envs
 3. Now open up a NEW Terminal window.
 4. Follow steps 3-5 from the previous section (including installing the Linux library).
 5. Instead of just installing NEURON with `pip install neuron`, instead run `pip install neuron netpyne` to also install NetPyNE.
-6. `cd` to to `netpyne-batch-running` subfolder of this code.
+6. `cd` to the `netpyne-batch-running` subfolder of this code.
 7. Follow step 8 from the previous section.
 8. Now you can run the batch job submission and simulation by running `python netpyne_batch.py`! After the jobs complete, you can run `python netpyne_analysis.py` to compare the different simulations!

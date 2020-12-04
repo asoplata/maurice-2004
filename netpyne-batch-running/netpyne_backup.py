@@ -41,6 +41,7 @@ netParams.stimTargetParams['bkg->IN'] = {'source': 'bkg',
                                          'conds': {'cellType': 'IN', 'cellModel': 'Maurice'},
                                          'weight': 0.5,
                                          'delay': 5,
+
                                          'synMech': 'inh'}
 
 ###############################################################################

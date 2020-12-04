@@ -1,3 +1,7 @@
+**/x86_64
+**.json
+**.png
+poetry.lock
 *.csv
 .idea/*
 __pycache__
@@ -6,5 +10,3 @@ examples/x86_64/*
 mainen-test/__pycache__/*
 mainen-test/x86_64/*
 netpyne-batch-running/__pycache__/*
-netpyne-batch-running/x86_64/*
-x86_64/*

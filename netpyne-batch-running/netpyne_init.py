@@ -18,3 +18,4 @@ sim.createSimulateAnalyze(netParams=netParams, simConfig=simConfig)
 # # Saving data
 # with open('data.csv', 'w') as f:
 #     csv.writer(f).writerows(zip(t, v))
+
