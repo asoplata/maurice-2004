@@ -44,8 +44,10 @@ Do this now. Afterwards, you should now see something like `(neuro)` to the left
 8. Run the command `nrnivmodl`. It should spit out a bunch of text and create a bunch of compiled files in a folder called `x86_64`. This is it compiling the mechanisms, but not the sim code itself.
 9. If you want to run the original NEURON/hoc model code, run `nrngui
    mosinit.hoc`. If you want to run my native Python implementation, run `nrniv
-   init.py`. If you want to run my NetPyNE single-simulation implementation, run
-   `pip install netpyne` followed by `python netpyne_init.py`.
+   init.py`.
+10. If you want to run my NetPyNE single-simulation implementation, after you do
+    the above, run `pip install netpyne`, then `cd netpyne-batch-running`, then `nrnivmodl`,
+    and then finally `python netpyne_single.py`.
 
 ### SCC Cluster / NetPyNE
 
@@ -66,3 +68,19 @@ export PATH=$PATH:/projectnb/<your_project_name>/<your_user_name>/conda_envs
 6. `cd` to the `netpyne-batch-running` subfolder of this code.
 7. Follow step 8 from the previous section.
 8. Now you can run the batch job submission and simulation by running `python netpyne_batch.py`! After the jobs complete, you can run `python netpyne_analysis.py` to compare the different simulations!
+
+## Instructions (Poetry)
+
+If you want to use the excellent [Poetry](https://python-poetry.org/) for your
+package management instead of conda, install Poetry and the version of Python
+you want to use, go to the directory where you downloaded this model, and run in
+the terminal
+
+`poetry install`
+
+followed by
+
+`poetry shell`
+
+to activate your environment, after which point you should be able to run all
+the simulations mentioned above.
